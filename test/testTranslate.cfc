@@ -16,6 +16,18 @@ component extends="mxunit.framework.TestCase"{
 	
 		
     }
+	
+	public void function testTranslateFrenchToEnglish(){
+    	var toString = "I eat the France!";
+		var FromString = "Je mange la France!";
+		var fromCode = "fr";
+		var toCode = "en";
+		
+		var translation = variables.translator.translate(fromString,fromCode,toCode);
+		AssertEquals(toString, translation);
+	
+		
+    }
     
 
 }
