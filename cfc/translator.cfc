@@ -16,13 +16,19 @@ component{
 	* @to The languge we want to translate the string to
 	*/
 	public string function translate(required string q, required string from, required string to){
+		var trans = "";
 		var httpObj = New http();
 		httpObj.setUrl(variables.apiUrl & "translate");
 		httpObj.addParam(name='v',type='url',value=variables.v);
 		httpObj.addParam(name='q',type='url',value=arguments.q);
 		httpObj.addParam(name='langpair',type='url',value=arguments.from & "|" & arguments.to);
 		var result = httpObj.send();
-		var trans = deserializeJSON(result.getPrefix().fileContent).responseData.translatedText;
+		try{
+			trans = deserializeJSON(result.getPrefix().fileContent).responseData.translatedText;
+		}
+		catch(any excpt){
+			trans = "Sorry, an error occurred. (" & deserializeJSON(result.getPrefix().fileContent).responseDetails & ")";
+		}
 		return trans;
 	}
 	
